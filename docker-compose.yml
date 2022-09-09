@@ -1,0 +1,77 @@
+version: '3.3'
+networks:
+    founders212:
+
+services:
+  database:
+    container_name: database
+    image: mysql:8.0
+    restart: on-failure
+    ports:
+      - 52946:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 80DUmfEFhfN2JrskpHem4yPfkRFf6Y
+      MYSQL_DATABASE: 212founder
+      MYSQL_PASSWORD: 80DUmfEFhfN2JrskpHem4yPfkRFf6Y
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - founders212
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: on-failure
+    hostname: redis
+    networks:
+      - founders212
+   
+  symfony_backend:
+    container_name: symfony_backend
+    build:
+      context: ./backend
+    restart: on-failure
+    depends_on:
+      - database
+    links:
+      - database
+      - redis
+    environment:
+      - DATABASE_URL=mysql://root:80DUmfEFhfN2JrskpHem4yPfkRFf6Y@database:3306/212founder
+    networks:
+      - founders212
+    volumes:
+      - "media_storage:/media"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    restart: on-failure
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+     - founders212  
+    volumes:
+     - /etc/letsencrypt:/etc/letsencrypt
+     - "media_storage:/var/www/media"
+  
+  spring_backend:
+    container_name: spring_backend
+    build:
+      context: ./founder
+    restart: on-failure
+    depends_on:
+      - redis
+      - database
+    links:
+      - database
+      - redis
+    networks:
+      - founders212
+    volumes:
+      - "media_storage:/212founders/media"
+
+volumes:
+  media_storage:

@@ -1,0 +1,49 @@
+
+
+<div class="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-icon">
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+<!--============= Sign In Section Starts Here =============-->
+<div class="account-section bg_img" data-background="./assets/images/account-bg.jpg">
+  <div class="container">
+    <div class="account-title text-center">
+      <a href="/" class="back-home"><i class="fas fa-angle-left"></i><span>Acceuil</span></a>
+      <a href="/" class="logo">
+        <img src="assets/images/logo/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="account-wrapper">
+      <div class="account-body">
+        <h4 class="title mb-20">Hez Blech</h4>
+        <form class="account-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label >Email </label>
+            <input type="email" placeholder="Entre votre email" formControlName="email" name="email">
+          </div>
+          <div class="form-group">
+            <label >Mot de passe</label>
+            <input type="password" placeholder="Entre votre password" formControlName="password" name="password">
+            <span class="sign-in-recovery">Forgot your password? <a href="/resetpassword">recover password</a></span>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="mt-2 mb-2">Se connecter</button>
+          </div>
+        </form>
+      </div>
+      <div class="account-header pb-0">
+        <span class="d-block mt-15">Don't have an account? <a href="signup">Sign Up Here</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+<!--============= Sign In Section Ends Here =============-->
+
+
+
+

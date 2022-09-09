@@ -1,0 +1,17 @@
+<div class="d-flex flex-column col-6 justify-content-center mx-auto" style="margin-top:100px">
+<br>
+<br>
+<br>
+  <h4 class="mx-auto">Séléctionner le montant</h4>
+  <mat-slider
+    thumbLabel
+    [displayWith]="formatLabel"
+    tickInterval="1000"
+    step="1000"
+    min="0"
+    max="100000"
+    aria-label="units"></mat-slider>
+  <br>
+<button mat-raised-button color="primary" class="w-25  mx-auto">Acheter</button>
+
+</div>

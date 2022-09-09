@@ -1,0 +1,16 @@
+<div class="d-flex flex-row">
+  <div class="menu bg-white w-25" style="height:100vh">
+    <div><a mat-raised-button routerLink="product"  color="primary" class="w-100">Produit</a></div>
+    <br>
+    <div><a mat-raised-button routerLink="user" color="primary" class="w-100">Users</a></div>
+    <br>
+    <div><a mat-raised-button routerLink="session"  color="primary" class="w-100">Enchere</a></div>
+    <br>
+    <div><a mat-raised-button (click)="signout()" color="primary" class="w-100">Se déconnecter</a></div>
+
+  </div>
+<div class="content w-100">
+  <router-outlet></router-outlet>
+</div>
+
+</div>

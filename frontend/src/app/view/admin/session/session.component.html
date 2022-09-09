@@ -1,0 +1,84 @@
+<div class="d-flex flex-column container">
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" >
+    </mat-form-field>
+    <h4>Enchéres</h4>
+    <button  mat-raised-button color="primary"  (click)="openDialog()" style="width:fit-content">Ajouter Enchere</button>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table   mat-table [dataSource]="sessions" class="w-100 ">
+      <ng-container matColumnDef="started_at" >
+        <th mat-header-cell *matHeaderCellDef ><b class="fs-6 text-lightviolet"> Start at</b> </th>
+        <td mat-cell *matCellDef="let element" > {{element.started_at|date:'M/d/yy, h:mm a'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fininshed_at" >
+        <th mat-header-cell *matHeaderCellDef ><b class="fs-6 text-lightviolet"> finish at</b> </th>
+        <td mat-cell *matCellDef="let element" > {{element.fininshed_at}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="participation_fees" >
+        <th mat-header-cell *matHeaderCellDef ><b class="fs-6 text-lightviolet"> participation fees</b> </th>
+        <td mat-cell *matCellDef="let element" > {{element.participation_fees}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="winner_product_id" >
+        <th mat-header-cell *matHeaderCellDef ><b class="fs-6 text-lightviolet"> Produit</b> </th>
+        <td mat-cell *matCellDef="let element" > {{element.winner_product_id.title}}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="action" >
+        <th mat-header-cell *matHeaderCellDef ><b class="fs-6 text-lightviolet"> Action</b> </th>
+        <td mat-cell *matCellDef="let element" >
+          <svg  (click)="deleteSession(element.id)" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="cursor-pointer bi bi-trash ml-3" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+          </svg>
+
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator  hidePageSize showFirstLastButtons  pageSize="10"  [length]="sessions.data.length"></mat-paginator>
+
+
+  </div>
+
+
+</div>
+
+<ng-template #productDialog>
+  <h2 mat-dialog-title>Ajouter Enchere</h2>
+  <mat-dialog-content class="mat-typography">
+    <form class="d-flex flex-column" [formGroup]="sessionForm" (ngSubmit)="saveSession()">
+      <input type="hidden" formControlName="id">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Start at</mat-label>
+        <input matInput type="datetime-local" formControlName="started_at" >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>participation fees</mat-label>
+        <input matInput  formControlName="participation_fees">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Products</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of products"  formControlName="winner_product_id" [value]="food.id">
+            {{food.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Enregistrer</button>
+    </form>
+  </mat-dialog-content>
+</ng-template>

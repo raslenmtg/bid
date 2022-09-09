@@ -1,0 +1,48 @@
+<div class="account-section bg_img" data-background="./assets/images/account-bg.jpg">
+  <div class="container">
+    <div class="account-title text-center">
+      <a href="/" class="back-home"><i class="fas fa-angle-left"></i><span>Acceuil</span></a>
+      <a href="/" class="logo">
+        <img src="assets/images/logo/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="account-wrapper">
+      <div class="account-body">
+        <h4 class="title mb-20">Hez Blech</h4>
+        <form class="account-form"  [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off">
+          <div class="form-group">
+            <label for="nom">Nom </label>
+            <input type="text" placeholder="Entrer votre Nom" id="nom" formControlName="last_name">
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom </label>
+            <input type="text" placeholder="Entrer votre Prénom" id="prenom" formControlName="first_name">
+          </div>
+          <div class="form-group">
+            <label for="phone">Téléphone </label>
+            <input type="number" placeholder="Entrer votre Téléphone" id="phone" formControlName="phone">
+          </div>
+          <div class="form-group">
+            <label for="email">Email </label>
+            <input type="text" placeholder="Entrer votre email" id="email" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" placeholder="Entrer votre Mot de passe" id="password"  formControlName="password">
+          </div>
+          <div class="form-group">
+            <div class="g-recaptcha" data-sitekey="6LdXpcIgAAAAANk9KjeVrt6XTXQ0YbDGp2FOpqLC"></div>
+            <div *ngIf="captchaError" class="error">Recaptcha not verified.</div>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="mt-2 mb-2">S'inscrire</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

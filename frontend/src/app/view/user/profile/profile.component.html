@@ -1,0 +1,95 @@
+<section class="to-access-section padding-top padding-bottom bg_img mb-lg-5"
+         data-background="./assets/images/feature/to-access-bg.png" id="feature"
+         style="background-image: url(&quot;./assets/images/feature/to-access-bg.png&quot;);">
+  <div class="container col-6">
+    <div class="section-header">
+      <h5 class="cate">Amazing features to convince you</h5>
+      <h2 class="title">Profile information</h2>
+      <div class="profilepic" style="margin: auto">
+
+        <img class="profilepic__image" *ngIf="ProfilePhotoLink"
+             [src]="ProfilePhotoLink"
+             width="150" height="150" alt="ProfilePicture"/>
+        <svg *ngIf="!ProfilePhotoLink" xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-circle" data-darkreader-inline-fill="" style="--darkreader-inline-fill:currentColor;"><path _ngcontent-kjp-c56="" d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path><path _ngcontent-kjp-c56="" fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path></svg>
+        <div class="profilepic__content" (click)="avatarFileInput.click()">
+          <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
+          <span class="profilepic__text">Edit Profile</span>
+        </div>
+      </div>
+      <input type="file" name="file" id="file" (change)="SetAvatarProfile($event)" class="inputfile" hidden
+             #avatarFileInput/>
+    </div>
+
+    <form class="account-form" [formGroup]="ProfileForm" (ngSubmit)="SubmitProfile()" autocomplete="off">
+      <div class="d-flex justify-content-around">
+        <div class="form-group col-6">
+          <label for="nom">Nom </label>
+          <input type="text" placeholder="Entrer votre Nom" id="nom" formControlName="last_name">
+        </div>
+        <div class="form-group col-6">
+          <label for="prenom">Prénom </label>
+          <input type="text" placeholder="Entrer votre Prénom" id="prenom" formControlName="first_name">
+        </div>
+
+      </div>
+
+
+      <div class="d-flex justify-content-around">
+        <div class="form-group col-6">
+          <label for="phone">Téléphone </label>
+          <input type="number" placeholder="Entrer votre Téléphone" id="phone" formControlName="phone">
+        </div>
+        <div class="form-group col-6">
+          <label for="email">Email </label>
+          <input type="text" placeholder="Entrer votre email" id="email" formControlName="email">
+        </div>
+      </div>
+
+      <div class="banner-button-group mt-2 justify-content-center">
+        <button type="submit" class="button-4">Enregistrer</button>
+      </div>
+    </form>
+    <br>
+    <div class="banner-button-group mt-2 justify-content-center">
+      <button class="button-4" data-toggle="modal" data-target="#PasswordModal" >Changer mot de passe</button>
+    </div>
+
+    <div class="modal fade" id="PasswordModal" #PasswordModal tabindex="-1" role="dialog" aria-labelledby="PasswordModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+          <form [formGroup]="ChangePasswordForm" (ngSubmit)="SubmitPasswordChange()">
+            <div class="form-group">
+              <label for="password">Nouveau Mot de passe</label>
+              <input type="password" placeholder="Entrer votre Mot de passe" minlength="8" id="password"  formControlName="password">
+            </div>
+            <div *ngIf="ChangePasswordForm.controls.password.invalid && (ChangePasswordForm.controls.password.dirty || ChangePasswordForm.controls.password.touched)"
+                 class="alert alert-danger p-1">
+              <div *ngIf="ChangePasswordForm.controls.password.errors?.['minlength']">
+                <small>Le mot de passe doit contenir au moins 8 caractères et chiffres.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="new_password">Confirmer votre Mot de passe</label>
+              <input type="password" placeholder="Entrer votre Mot de passe"  minlength="8" id="new_password"  formControlName="password_confirmation">
+            </div>
+            <div *ngIf="ChangePasswordForm.controls.password_confirmation.invalid && (ChangePasswordForm.controls.password_confirmation.dirty || ChangePasswordForm.controls.password_confirmation.touched)"
+                 class="alert alert-danger p-1">
+              <div *ngIf="ChangePasswordForm.controls.password_confirmation.errors?.['minlength']">
+                <small>Le mot de passe doit contenir au moins 8 caractères et chiffres.</small>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="button-4" >Enregistrer</button>
+            </div>
+          </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
